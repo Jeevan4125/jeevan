@@ -1,0 +1,207 @@
+:root {
+  /* --- Color tokens --- */
+  --bg-void: #080808;
+  --bg-panel: #111111;
+  --bg-panel-raised: #1b1b1b;
+  --line: rgba(205, 203, 202, 0.14);
+  --line-strong: rgba(205, 203, 202, 0.28);
+  --ink-primary: #CDCBCA;
+  --ink-secondary: #aaa8a7;
+  --ink-tertiary: #777574;
+  --signal: #D41514;
+  --signal-dim: #7b100f;
+  --signal-glow: rgba(212, 21, 20, 0.35);
+  --pulse: #CDCBCA;
+  --pulse-dim: #555352;
+  --warn: #D41514;
+
+  /* --- Type tokens --- */
+  --font-display: "Space Grotesk", "Manrope", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* --- Layout tokens --- */
+  --edge: clamp(20px, 6vw, 88px);
+  --radius-s: 6px;
+  --radius-m: 14px;
+  --radius-l: 26px;
+}
+
+@keyframes text-gradient {
+  to { background-position: 200% center; }
+}
+
+.animate-text-gradient {
+  background-size: 200% auto;
+  animation: text-gradient 3.5s linear infinite;
+}
+
+.parallax-card-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-void);
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+img { display: block; max-width: 100%; }
+
+::selection {
+  background: var(--signal);
+  color: #080808;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb {
+  background: var(--bg-panel-raised);
+  border-radius: 8px;
+  border: 2px solid var(--bg-void);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--signal-dim); }
+
+/* Utility */
+.mono { font-family: var(--font-mono); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 10px var(--signal-glow);
+}
+
+.section {
+  position: relative;
+  padding: clamp(72px, 12vh, 140px) var(--edge);
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: clamp(40px, 6vh, 72px);
+}
+
+.section-title {
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--signal);
+}
+
+.section-sub {
+  color: var(--ink-secondary);
+  font-size: 1rem;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Mobile / touch performance pass ---
+   Backdrop blur and large box-shadows are cheap on desktop GPUs but
+   force the compositor to re-rasterize on most phones, which is what
+   shows up as scroll stutter. Trim them on coarse-pointer/small-screen
+   devices without changing how the site looks on desktop. */
+@media (hover: none), (pointer: coarse) {
+  html { scroll-behavior: auto; }
+
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .mzaCard {
+    background: rgba(17, 17, 17, 0.92);
+  }
+  .mzaCard-text {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* Large soft shadows force repeated repaint of a big blurred area on
+     every scroll frame on weak GPUs. Shrink the blur radius instead of
+     removing the shadow outright so things still look layered. */
+  .project-row,
+  .profile-card__body {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35) !important;
+  }
+  .project-row-glow { display: none; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

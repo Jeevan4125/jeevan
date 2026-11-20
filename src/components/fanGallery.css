@@ -1,0 +1,289 @@
+.fanGallery {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 56px 0 8px;
+}
+
+.fanGallery-stage {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+  outline: none;
+}
+
+.fanGallery-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 108px;
+  height: 156px;
+  margin: -78px 0 0 -54px;
+  border-radius: 20px;
+  background: var(--bg-panel-raised);
+  border: 1px solid var(--line-strong);
+  cursor: pointer;
+  padding: 16px 8px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  will-change: transform;
+}
+
+.fanGallery-card[data-center="true"] {
+  width: 128px;
+  height: 176px;
+  margin: -88px 0 0 -64px;
+  border-color: var(--card-color, var(--signal));
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.38),
+    0 0 0 1px var(--card-color, var(--signal)),
+    0 0 26px color-mix(in srgb, var(--card-color, var(--signal)) 30%, transparent);
+}
+
+.fanGallery-card[data-hovered="true"] {
+  border-color: var(--card-color, var(--signal));
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--card-color, var(--signal)),
+    0 0 30px color-mix(in srgb, var(--card-color, var(--signal)) 40%, transparent);
+}
+
+.fanGallery-card:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 4px;
+}
+
+.fanGallery-cardIcon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fanGallery-cardIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+.fanGallery-cardGlyph {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--card-color, var(--signal));
+}
+
+.fanGallery-cardName {
+  font-size: 11.5px;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--text-secondary, #c8ccd6);
+  padding: 0 2px;
+}
+
+.fanGallery-status {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-height: 24px;
+}
+.fanGallery-statusName {
+  font-size: 14px;
+  color: var(--text-primary, #f4f6fb);
+}
+
+.fanGallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.fanGallery-navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: color-mix(in srgb, var(--bg-panel-raised) 70%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--text-primary, #f4f6fb);
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.fanGallery-navBtn:hover {
+  transform: translateY(-2px);
+  border-color: var(--signal);
+  background: color-mix(in srgb, var(--bg-panel-raised) 55%, var(--signal) 10%);
+}
+.fanGallery-navBtn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.fanGallery-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.fanGallery-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  border: none;
+  background: var(--line-strong);
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+.fanGallery-dot[data-active="true"] {
+  width: 20px;
+  background: var(--signal);
+}
+
+.fanGallery-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+.fanGallery-legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary, #c8ccd6);
+}
+.fanGallery-legendDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  .fanGallery {
+    gap: 16px;
+    padding: 36px 0 4px;
+  }
+  .fanGallery-stage {
+    height: 190px;
+    max-width: 100%;
+    padding: 0 8px;
+  }
+  .fanGallery-card {
+    width: 68px;
+    height: 104px;
+    margin: -52px 0 0 -34px;
+    border-radius: 14px;
+    padding: 10px 6px;
+    gap: 6px;
+  }
+  .fanGallery-card[data-center="true"] {
+    width: 84px;
+    height: 122px;
+    margin: -61px 0 0 -42px;
+  }
+  .fanGallery-cardIcon {
+    width: 26px;
+    height: 26px;
+  }
+  .fanGallery-cardGlyph {
+    font-size: 10px;
+  }
+  .fanGallery-cardName {
+    font-size: 8.5px;
+    line-height: 1.15;
+  }
+  .fanGallery-status {
+    font-size: 12px;
+    text-align: center;
+    padding: 0 16px;
+  }
+  .fanGallery-statusName {
+    font-size: 12.5px;
+  }
+  .fanGallery-controls {
+    gap: 12px;
+  }
+  .fanGallery-navBtn {
+    width: 44px;
+    height: 44px;
+  }
+  .fanGallery-dots {
+    max-width: 140px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .fanGallery-dot {
+    width: 5px;
+    height: 5px;
+  }
+  .fanGallery-dot[data-active="true"] {
+    width: 16px;
+  }
+  .fanGallery-legend {
+    gap: 10px 14px;
+    padding: 0 12px;
+  }
+  .fanGallery-legendItem {
+    font-size: 9.5px;
+  }
+}
+
+@media (max-width: 420px) {
+  .fanGallery-stage {
+    height: 168px;
+  }
+  .fanGallery-card {
+    width: 58px;
+    height: 92px;
+    margin: -46px 0 0 -29px;
+    border-radius: 12px;
+    padding: 8px 4px;
+  }
+  .fanGallery-card[data-center="true"] {
+    width: 72px;
+    height: 108px;
+    margin: -54px 0 0 -36px;
+  }
+  .fanGallery-cardIcon {
+    width: 22px;
+    height: 22px;
+  }
+  .fanGallery-cardName {
+    font-size: 7.5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fanGallery-card {
+    transition: none;
+  }
+}
